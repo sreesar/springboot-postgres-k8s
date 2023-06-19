@@ -12,8 +12,7 @@ jobs:
         java-version: 1.8
     - name: Build and test
       run: mvn clean package -DskipTests=true 
-    - name: Build & image
-      run: docker build . --file Dockerfile --tag my-image-name:springboot
+    
     - name: push into ECR
       uses: vitr/actions-build-and-upload-to-ecs@master
       with:
