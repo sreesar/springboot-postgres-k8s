@@ -12,4 +12,5 @@ jobs:
         java-version: 1.8
     - name: Build and test
       run: mvn clean package -DskipTests=true 
-    
+    - name: Build & image
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
