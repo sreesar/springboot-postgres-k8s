@@ -54,7 +54,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres
+          image: public.ecr.aws/x1l1i9y8/postgresql:latest
           imagePullPolicy: "IfNotPresent"
           env:
             - name: POSTGRES_USER
