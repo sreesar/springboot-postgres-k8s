@@ -1,6 +1,6 @@
 name: spring boot
-on:
-  workflow_dispatch: {}
+on: [push, pull_request]
+  
   jobs:
   build:
     runs-on: ubuntu-latest
