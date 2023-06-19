@@ -13,4 +13,4 @@ jobs:
     - name: Build and test
       run: mvn clean package -DskipTests=true 
     - name: Build & image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build springboot
