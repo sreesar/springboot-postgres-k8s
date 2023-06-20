@@ -30,7 +30,7 @@ jobs:
           echo "$(<kubectl.sha256) kubectl" | sha256sum --check
           sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
           kubectl version --client
-          aws-iam-authenticator token -i ${{ inputs.CLUSTER_NAME }}
+          kubectl get nodes
           
     - name: Install kustomize
       run: |
