@@ -23,3 +23,13 @@ jobs:
           region: ap-northeast-2
           tags: latest,${{ github.sha }}
           create_repo: true
+    - name: update kube config
+      run: aws eks update-kubeconfig --name demo-cluster --region us-west-2
+    - name: Deploy to Eks 
+      run: |
+         kubectl apply -f demo-postgres-configmap.yml
+         kubectl apply -f demo-postgres-credentials.yml
+         kubectl apply -f demo-postgres-deployment.yml
+         
+          
+         
