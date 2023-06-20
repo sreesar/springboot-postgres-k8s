@@ -23,13 +23,19 @@ jobs:
           region: us-west-2
           tags: latest,${{ github.sha }}
           create_repo: true
-    - name: Deploy to AWS EKS
-      uses: giovannirossini/aws-eks-kubectl-action@v1
-      with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: 'us-east-1'
-          cluster-name: 'demo'
-          command: |
-            kubectl  get nodes
-  
+    - name: Install and configure kubectl
+      run: |
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+          echo "$(<kubectl.sha256) kubectl" | sha256sum --check
+          sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+          kubectl version --client
+          aws-iam-authenticator token -i ${{ inputs.CLUSTER_NAME }}
+          
+    - name: Install kustomize
+      run: |
+            # Setup kustomize
+            cd $( mktemp -d )
+            curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv4.5.7/kustomize_v4.5.7_linux_amd64.tar.gz
+            chmod u+x ./kustomize
+
