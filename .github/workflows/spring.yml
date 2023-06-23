@@ -44,8 +44,8 @@ jobs:
          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
          aws-region: us-west-2
        
-    - name: Display kubeconfig
-      run: kubectl cluster-info
+    - name: Display nodes
+      run: kubectl get nodes
 
    # - name: Debug cluster info
           
