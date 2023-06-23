@@ -37,8 +37,6 @@ jobs:
        unzip awscliv1.zip
        sudo ./aws/install --update
        aws --version
-    - name: Retrieve kubeconfig data
-      run: |
-        aws eks update-kubeconfig --name demo --region us-west-2 --kubeconfig kubeconfig.yaml
+       kubectl cluster -info
          
    
