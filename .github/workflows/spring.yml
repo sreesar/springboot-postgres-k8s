@@ -47,6 +47,7 @@ jobs:
     - name: Display nodes
       run: kubectl get nodes
 
+
    # - name: Debug cluster info
           
  #     run: |
