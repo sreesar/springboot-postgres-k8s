@@ -56,7 +56,7 @@ jobs:
     - name: Set kubeconfig data
       env:
         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA_SPRING}}
-      run: kubectl get nodes
+      run: kubectl cluster-info
          
    #      kubectl --kubeconfig kubeconfig.yml cluster-info dump
          
