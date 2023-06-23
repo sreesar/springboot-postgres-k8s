@@ -37,15 +37,15 @@ jobs:
        unzip awscliv1.zip
        sudo ./aws/install --update
        aws --version
-    - name: aws configure
+    - name: Configure AWS credentials
       run: |
-         aws configure
-         account_id: ${{ secrets.AWS_ACCOUNT_ID }}
-         access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-         secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+         aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+         aws configure set default.region $AWS_REGION
          region: us-west-2
-    - name: Display kubeconfig
-      run: cat kubeconfig.yaml
+         kubectl cluster-info
+   # - name: Display kubeconfig
+   #   run: cat kubeconfig.yaml
 
    # - name: Debug cluster info
           
