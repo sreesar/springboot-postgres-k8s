@@ -38,14 +38,14 @@ jobs:
        sudo ./aws/install --update
        aws --version
     - name: Configure AWS credentials
-      run: |
-         aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-         aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-         aws configure set default.region $AWS_REGION
-         region: us-west-2
-         kubectl cluster-info
-   # - name: Display kubeconfig
-   #   run: cat kubeconfig.yaml
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         aws-region: <your-aws-region>
+       
+    - name: Display kubeconfig
+      run: kubectl cluster-info
 
    # - name: Debug cluster info
           
