@@ -63,6 +63,7 @@ jobs:
       run: aws eks update-kubeconfig --name springboot  --region us-west-2
     - name: deploy to EKS
       run: |
+        cd kubernetes
         kubectl apply -f deployment.yml
           
           
