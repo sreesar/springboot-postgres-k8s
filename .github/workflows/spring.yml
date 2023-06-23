@@ -39,6 +39,6 @@ jobs:
        aws --version
     - name: Debug cluster info
       run: |
-         kubectl --kubeconfig kubeconfig.yaml cluster-info dump
+         kubectl --kubeconfig kubeconfig.yml cluster-info dump
          
    
