@@ -30,12 +30,12 @@ jobs:
           echo "$(<kubectl.sha256) kubectl" | sha256sum --check
           sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
           kubectl version --client
-          kubectl get nodes
+#          kubectl get nodes
           
-    - name: Install kustomize
-      run: |
-            # Setup kustomize
-            cd $( mktemp -d )
-            curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv4.5.7/kustomize_v4.5.7_linux_amd64.tar.gz
-            chmod u+x ./kustomize
+#    - name: Install kustomize
+#      run: |
+#            # Setup kustomize
+#            cd $( mktemp -d )
+#            curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv4.5.7/kustomize_v4.5.7_linux_amd64.tar.gz
+#            chmod u+x ./kustomize
 
