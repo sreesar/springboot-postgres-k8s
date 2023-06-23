@@ -58,6 +58,12 @@ jobs:
         pwd
         cd ..
         ls
+        
+    - name: update kube config
+      run: aws eks update-kubeconfig --name springboot  --region us-west-2
+    - name: deploy to EKS
+      run: |
+        kubectl apply -f deployment.yml
           
           
     - name:  cluster config
