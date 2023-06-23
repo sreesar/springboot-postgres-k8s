@@ -54,7 +54,10 @@ jobs:
           kubectl version --client
           
     - name: get config file
-      run: cat $HOME/.kube/config | base64
+      run: |
+        pwd
+        cd home/ubuntu/.kube
+        ls -al
           
           
     - name:  cluster config
