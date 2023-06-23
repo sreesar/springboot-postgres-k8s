@@ -56,7 +56,7 @@ jobs:
     - name: get config file
       run: |
         pwd
-        cd home/ubuntu/.kube
+        cd home/runner/.kube/
         ls -al
           
           
