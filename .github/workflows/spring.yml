@@ -44,20 +44,21 @@ jobs:
          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
          aws-region: us-west-2
        
-    - name: deploy to cluster
-      uses: kodermax/kubectl-aws-eks@master
-      env:
-        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: demoapplication
-        IMAGE_TAG: ${{ github.sha }}
-      with:
-        args: set image deployment/$ECR_REPOSITORY $ECR_REPOSITORY=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+  #  - name: deploy to cluster
+   #   uses: kodermax/kubectl-aws-eks@master
+    #  env:
+     #   KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+     #   ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+     #   ECR_REPOSITORY: demoapplication
+     #   IMAGE_TAG: ${{ github.sha }}
+     # with:
+     #   args: set image deployment/$ECR_REPOSITORY $ECR_REPOSITORY=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
 
-   # - name: Debug cluster info
+    - name: Debug cluster info
           
- #     run: |
+      run: |
+          cat $HOME/.kube/config | base64
          
    #      kubectl --kubeconfig kubeconfig.yml cluster-info dump
          
