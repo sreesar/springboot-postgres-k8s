@@ -53,12 +53,10 @@ jobs:
      #   IMAGE_TAG: ${{ github.sha }}
      # with:
      #   args: set image deployment/$ECR_REPOSITORY $ECR_REPOSITORY=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-
-
-    - name: Debug cluster info
-          
-      run: |
-          cat $HOME/.kube/config | base64
+    - name: Set kubeconfig data
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA_SPRING}}
+      run: kubectl get nodes
          
    #      kubectl --kubeconfig kubeconfig.yml cluster-info dump
          
