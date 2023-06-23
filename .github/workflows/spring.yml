@@ -13,16 +13,38 @@ jobs:
     - name: Build and test
       run: mvn clean package -DskipTests=true 
     
-    - name: push into ECR
+    - name: create a Docker Image
+      run: |
+        docker build -it springboot .
+        docker image
+        
+   
+    - name: push image to ECR
       uses: vitr/actions-build-and-upload-to-ecs@master
       with:
-          access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          account_id: ${{ secrets.AWS_ACCOUNT_ID }}
-          repo: demoapplication
-          region: us-west-2
-          tags: latest,${{ github.sha }}
-          create_repo: true
+         access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+         repo: demoapplication
+         region: us-west-2
+         tags: latest,${{ github.sha }}
+         create_repo: true
+             
+    - name: Install AWS CLI
+      run: |
+       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv1.zip"
+       unzip awscliv1.zip
+       sudo ./aws/install --update
+       aws --version
+       
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         aws-region: us-west-2
+   
+       
     - name: Install and configure kubectl
       run: |
           curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -31,19 +53,17 @@ jobs:
           sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
           kubectl version --client
           
-    - name: Install AWS CLI
-      run: |
-       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv1.zip"
-       unzip awscliv1.zip
-       sudo ./aws/install --update
-       aws --version
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
+          
+    - name:  cluster config
+      uses: statsig-io/kubectl-via-eksctl@main
+      env:
+        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        region: us-west-2
+        cluster: springboot
       with:
-         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-         aws-region: us-west-2
-       
+           args: rollout restart deployment/willanyoneeverreadthis
+           
   #  - name: deploy to cluster
    #   uses: kodermax/kubectl-aws-eks@master
     #  env:
