@@ -56,7 +56,7 @@ jobs:
     - name: get config file
       run: |
         pwd
-        cd ..
+        
         ls
         
     - name: update kube config
