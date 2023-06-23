@@ -37,6 +37,8 @@ jobs:
        unzip awscliv1.zip
        sudo ./aws/install --update
        aws --version
-       kubectl cluster-info
+    - name: Debug cluster info
+      run: |
+         kubectl --kubeconfig kubeconfig.yaml cluster-info dump
          
    
