@@ -40,8 +40,10 @@ jobs:
     - name: aws configure
       run: |
          aws configure
+         account_id: ${{ secrets.AWS_ACCOUNT_ID }}
          access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
          secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         
          region: us-west-2
    # - name: Debug cluster info
           
