@@ -15,7 +15,7 @@ jobs:
     
     - name: create a Docker Image
       run: |
-        docker build -it springboot:v1
+        docker.build -t springboot:v1
         docker image
         
    
