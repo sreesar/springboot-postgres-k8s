@@ -37,6 +37,6 @@ jobs:
        unzip awscliv1.zip
        sudo ./aws/install --update
        aws --version
-       kubectl cluster -info
+       kubectl cluster-info
          
    
